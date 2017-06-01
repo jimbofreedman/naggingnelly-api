@@ -206,3 +206,19 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 
 # Your production stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+CORS_ORIGIN_WHITELIST = (
+    'naggingnelly.com',
+    'www.naggingnelly.com',
+    'api.naggingnelly.com',
+)
+>
+CSRF_TRUSTED_ORIGINS = (
+    'naggingnelly.com',
+    'www.naggingnelly.com',
+    'api.naggingnelly.com',
+)
+>
+CSRF_COOKIE_DOMAIN = '.naggingnelly.com'
+CSRF_COOKIE_HTTPONLY = False
+>
+SESSION_COOKIE_DOMAIN = '.naggingnelly.com'

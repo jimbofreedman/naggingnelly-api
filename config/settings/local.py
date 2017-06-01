@@ -79,3 +79,7 @@ CELERY_ALWAYS_EAGER = True
 DATABASES = {
     'default': env.db('DATABASE_URL', default='sqlite:///sqlite3.db'),
 }
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+)
