@@ -51,4 +51,4 @@ celery==3.1.25
 # Your custom requirements go here
 djangorestframework
 django-rest-auth
-django-cors-headers
+django-cors-middleware
