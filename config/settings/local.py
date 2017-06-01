@@ -76,3 +76,6 @@ CELERY_ALWAYS_EAGER = True
 
 # Your local stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+DATABASES = {
+    'default': env.db('DATABASE_URL', default='sqlite:///sqlite3.db'),
+}
