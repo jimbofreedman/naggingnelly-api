@@ -211,14 +211,14 @@ CORS_ORIGIN_WHITELIST = (
     'www.naggingnelly.com',
     'api.naggingnelly.com',
 )
->
+
 CSRF_TRUSTED_ORIGINS = (
     'naggingnelly.com',
     'www.naggingnelly.com',
     'api.naggingnelly.com',
 )
->
+
 CSRF_COOKIE_DOMAIN = '.naggingnelly.com'
 CSRF_COOKIE_HTTPONLY = False
->
+
 SESSION_COOKIE_DOMAIN = '.naggingnelly.com'
