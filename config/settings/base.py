@@ -53,6 +53,7 @@ THIRD_PARTY_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
     'corsheaders',
+    'recurrence',
 ]
 
 # Apps specific for this project go here.
