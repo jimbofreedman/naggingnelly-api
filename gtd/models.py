@@ -20,3 +20,5 @@ class Action(models.Model):
     owner = models.ForeignKey(User)
     short_description = models.CharField(max_length=100)
     status = models.IntegerField(choices=STATUS_CHOICES, default=STATUS_OPEN)
+
+    priority = models.IntegerField(default=0)

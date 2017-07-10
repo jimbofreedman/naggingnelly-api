@@ -4,4 +4,4 @@ from .models import Action
 class ActionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Action
-        fields = ['id', 'short_description', 'status']
+        fields = ['id', 'short_description', 'status', 'priority']
