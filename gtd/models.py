@@ -32,6 +32,9 @@ class Action(models.Model):
 
     recurrence = RecurrenceField(null=True, blank=True)
 
+    def __str__(self):
+        return self.short_description
+
     def save(self, *args, **kwargs):
         # If we have just been completed
         if (self.status > self.STATUS_OPEN and self.completed_at is None):
