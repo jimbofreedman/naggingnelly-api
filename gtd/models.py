@@ -32,6 +32,11 @@ class Action(models.Model):
 
     recurrence = RecurrenceField(null=True, blank=True)
 
+    dependencies = models.ManyToManyField('self',
+                                           symmetrical=False,
+                                           related_name='depends_on')
+
+
     def __str__(self):
         return self.short_description
 

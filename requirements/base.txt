@@ -53,3 +53,4 @@ djangorestframework
 django-rest-auth
 django-cors-middleware
 django-recurrence==1.4.1
+graphviz==0.8
