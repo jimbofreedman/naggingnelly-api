@@ -42,7 +42,7 @@ class Action(models.Model):
 
             # Make an ActionRecurrence object for this Action,
             # and reset it with new start_at/due_at
-            if (self.recurrence is not None):
+            if (self.recurrence is not None and self.recurrence.count() > 0):
                 action_recurrence = ActionRecurrence.objects.create(
                     action=self,
                     status=self.status,
