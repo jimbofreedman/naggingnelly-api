@@ -7,7 +7,7 @@ from api.users.models import User
 
 class Command(BaseCommand):
     def _find_or_add(self, desc):
-        user = User.objects.get(pk=2)
+        user = User.objects.get(pk=1)
         actions = Action.objects.filter(short_description=desc)
 
         if (actions.count() > 0):
