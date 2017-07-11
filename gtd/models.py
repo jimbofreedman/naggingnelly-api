@@ -34,7 +34,8 @@ class Action(models.Model):
 
     dependencies = models.ManyToManyField('self',
                                            symmetrical=False,
-                                           related_name='depends_on')
+                                           related_name='depends_on',
+                                           blank=True)
 
 
     def __str__(self):
