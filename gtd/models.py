@@ -48,7 +48,7 @@ class Action(models.Model):
             self.completed_at = timezone.now()
             # Make an ActionRecurrence object for this Action,
             # and reset it with new start_at/due_at
-            if (self.recurrence is not None and self.recurrence.occurrences()):
+            if (self.recurrence is not None and self.recurrence.occurrences() and self.start_at):
                 action_recurrence = ActionRecurrence.objects.create(
                     action=self,
                     status=self.status,
@@ -59,7 +59,7 @@ class Action(models.Model):
                 self.status = self.STATUS_OPEN
                 recur_date = self.recurrence.after(timezone.make_naive(self.start_at), inc=False, dtstart=datetime.today() + timedelta(days=1))
                 self.start_at = timezone.make_aware(datetime.combine(recur_date, self.start_at.time()))
-                self.due_at = timezone.make_aware(datetime.combine(recur_date, self.due_at.time()))
+                self.due_at = timezone.make_aware(datetime.combine(recur_date, self.due_at.time())) if self.due_at else None
 
         super(Action, self).save(*args, **kwargs)
 
