@@ -45,7 +45,7 @@ class ActionViewSet(viewsets.ModelViewSet):
 
     def _get_graph(self, format):
         dot = Digraph(format=format, comment='Tasks')
-        actions = self.get_queryset()
+        actions = self.get_queryset().filter(status=Action.STATUS_OPEN)
         for a in actions:
             dot.node(str(a.id), a.short_description)
             for d in a.depends_on.all():
