@@ -36,7 +36,7 @@ class ActionViewSet(viewsets.ModelViewSet):
         dot = Digraph(format='png', comment='Tasks')
         for a in actions:
             dot.node(str(a.id), a.short_description)
-            for d in a.dependencies.all():
+            for d in a.depends_on.all():
                 dot.edge(str(a.id), str(d.id))
 
         return HttpResponse(dot.pipe(), content_type="image/png")

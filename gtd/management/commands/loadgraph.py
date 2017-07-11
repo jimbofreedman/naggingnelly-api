@@ -7,7 +7,7 @@ from api.users.models import User
 
 class Command(BaseCommand):
     def _find_or_add(self, desc):
-        user = User.objects.get(pk=1)
+        user = User.objects.get(pk=2)
         actions = Action.objects.filter(short_description=desc)
 
         if (actions.count() > 0):
@@ -25,5 +25,6 @@ class Command(BaseCommand):
             first = self._find_or_add(match[0])
             second = self._find_or_add(match[1])
 
-            first.dependencies.add(second)
+            second.dependencies.add(first)
+            second.save()
 
