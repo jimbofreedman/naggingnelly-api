@@ -28,6 +28,20 @@ class ActionViewSet(viewsets.ModelViewSet):
         action.save()
         return Response(self.get_serializer(action).data)
 
+    @detail_route(methods=['post'])
+    def cancel(self, request, pk=None):
+        action = Action.objects.get(owner=request.user,pk=pk)
+        action.status = Action.STATUS_CANCELLED
+        action.save()
+        return Response(self.get_serializer(action).data)
+
+    @detail_route(methods=['post'])
+    def fail(self, request, pk=None):
+        action = Action.objects.get(owner=request.user,pk=pk)
+        action.status = Action.STATUS_FAILED
+        action.save()
+        return Response(self.get_serializer(action).data)
+
 
     def _get_graph(self, format):
         dot = Digraph(format=format, comment='Tasks')

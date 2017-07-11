@@ -42,7 +42,6 @@ class Action(models.Model):
         return self.short_description
 
     def save(self, *args, **kwargs):
-        print("start")
         # If we have just been completed
         if (self.status > self.STATUS_OPEN and self.completed_at is None):
             self.completed_at = timezone.now()
