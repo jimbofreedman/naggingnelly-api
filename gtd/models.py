@@ -42,27 +42,35 @@ class Action(models.Model):
         return self.short_description
 
     def save(self, *args, **kwargs):
+        print("start")
         # If we have just been completed
         if (self.status > self.STATUS_OPEN and self.completed_at is None):
             self.completed_at = timezone.now()
-
+            print("0")
             # Make an ActionRecurrence object for this Action,
             # and reset it with new start_at/due_at
             if (self.recurrence is not None and self.recurrence.count() > 0):
+                print("1")
                 action_recurrence = ActionRecurrence.objects.create(
                     action=self,
                     status=self.status,
                     start_at=self.start_at,
                     due_at=self.due_at
                 )
+                print("2")
                 action_recurrence.save()
-
+                print("3")
                 self.status = self.STATUS_OPEN
+                print("4")
                 recur_date = self.recurrence.after(timezone.make_naive(self.start_at), inc=False, dtstart=datetime.today() + timedelta(days=1))
+                print("5")
                 self.start_at = timezone.make_aware(datetime.combine(recur_date, self.start_at.time()))
+                print("6")
                 self.due_at = timezone.make_aware(datetime.combine(recur_date, self.due_at.time()))
+                print("7")
 
         super(Action, self).save(*args, **kwargs)
+        print("end")
 
 
 
