@@ -68,5 +68,6 @@ class QuestionModelTests(TestCase):
         self.assertEqual(action_recurrence.due_at, due_at)
         self.assertEqual(action.start_at, next_start_at)
         self.assertEqual(action.due_at, next_due_at)
+        self.assertEqual(action.completed_at, None)
 
 

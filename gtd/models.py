@@ -44,7 +44,6 @@ class Action(models.Model):
     def save(self, *args, **kwargs):
         # If we have just been completed
         if (self.status > self.STATUS_OPEN and self.completed_at is None):
-            self.completed_at = timezone.now()
             # Make an ActionRecurrence object for this Action,
             # and reset it with new start_at/due_at
             if (self.recurrence is not None and self.recurrence.occurrences() and self.start_at):
@@ -59,6 +58,8 @@ class Action(models.Model):
                 recur_date = self.recurrence.after(timezone.make_naive(self.start_at), inc=False, dtstart=datetime.today() + timedelta(days=1))
                 self.start_at = timezone.make_aware(datetime.combine(recur_date, self.start_at.time()))
                 self.due_at = timezone.make_aware(datetime.combine(recur_date, self.due_at.time())) if self.due_at else None
+            else:
+                self.completed_at = timezone.now()
 
         super(Action, self).save(*args, **kwargs)
 
@@ -70,3 +71,4 @@ class ActionRecurrence(models.Model):
 
     start_at = models.DateTimeField(null=True, blank=True)
     due_at = models.DateTimeField(null=True, blank=True)
+    completed_at = models.DateTimeField(auto_now_add=True)
