@@ -11,14 +11,29 @@ from api.users.models import User
 
 class QuestionModelTests(TestCase):
 
-    def test_complete_task_no_recurrence(self):
+    def test_new_task_priority(self):
         user = User.objects.create(
-            email="blah@blah.com"
+                email="blah@blah.com"
         )
+
         action = Action.objects.create(
             owner=user,
             short_description="Test Action"
         )
+        
+        action.save()
+        self.assertEqual(action.priority, action.id * 10000)
+
+    def test_complete_task_no_recurrence(self):
+        user = User.objects.create(
+            email="blah@blah.com"
+        )
+
+        action = Action.objects.create(
+            owner=user,
+            short_description="Test Action"
+        )
+
         action.save()
         self.assertIs(action.status, action.STATUS_OPEN)
         action.status = action.STATUS_COMPLETED
@@ -40,8 +55,6 @@ class QuestionModelTests(TestCase):
         user = User.objects.create(
             email="blah@blah.com"
         )
-
-        print(pattern)
 
         start_at = timezone.make_aware(datetime(2017, 1, 1, 7, 0, 0))
         due_at = timezone.make_aware(datetime(2017, 1, 1, 10, 0, 0))

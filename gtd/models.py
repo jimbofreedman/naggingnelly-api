@@ -61,7 +61,13 @@ class Action(models.Model):
             else:
                 self.completed_at = timezone.now()
 
+        is_new = self.id is None
+
         super(Action, self).save(*args, **kwargs)
+
+        if is_new:
+            self.priority = self.id * 10000
+            super(Action, self).save
 
 
 
