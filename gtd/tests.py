@@ -9,7 +9,7 @@ import recurrence
 from .models import Action, ActionRecurrence
 from api.users.models import User
 
-class QuestionModelTests(TestCase):
+class ActionModelTests(TestCase):
 
     def test_new_task_priority(self):
         user = User.objects.create(
@@ -20,9 +20,24 @@ class QuestionModelTests(TestCase):
             owner=user,
             short_description="Test Action"
         )
-        
+
         action.save()
         self.assertEqual(action.priority, action.id * 10000)
+
+
+    def test_new_task_specified_priority(self):
+        user = User.objects.create(
+            email="blah@blah.com"
+        )
+
+        action = Action.objects.create(
+            owner=user,
+            short_description="Test Action",
+            priority=-10
+        )
+
+        action.save()
+        self.assertEqual(action.priority, -10)
 
     def test_complete_task_no_recurrence(self):
         user = User.objects.create(

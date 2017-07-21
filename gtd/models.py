@@ -65,7 +65,7 @@ class Action(models.Model):
 
         super(Action, self).save(*args, **kwargs)
 
-        if is_new:
+        if is_new and self.priority == 0:
             self.priority = self.id * 10000
             super(Action, self).save
 
