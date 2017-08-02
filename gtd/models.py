@@ -56,7 +56,6 @@ class Action(models.Model):
                 action_recurrence.save()
                 self.status = self.STATUS_OPEN
                 recur_date = self.recurrence.after(timezone.make_naive(self.start_at), inc=False)
-                print(self.start_at.time())
                 self.start_at = timezone.make_aware(datetime.combine(recur_date, self.start_at.time()))
                 self.due_at = timezone.make_aware(datetime.combine(recur_date, self.due_at.time())) if self.due_at else None
             else:
