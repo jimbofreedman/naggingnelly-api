@@ -100,10 +100,10 @@ class ActionModelTests(TestCase):
         self.assertEqual(action.due_at, next_due_at)
         self.assertEqual(action.completed_at, None)
 
-    @freeze_time("2017-01-02 10:00:00")
+    @freeze_time("2017-08-02 22:17:51")
     def test_complete_task_weekly_recurrence(self):
         myrule = recurrence.Rule(
-            recurrence.WEEKLY, byday=[recurrence.base.SU]
+            recurrence.WEEKLY, byday=[recurrence.base.WE]
         )
 
         pattern = recurrence.Recurrence(
@@ -116,8 +116,8 @@ class ActionModelTests(TestCase):
             email="blah@blah.com"
         )
 
-        start_at = timezone.make_aware(datetime(2017, 1, 1, 7, 0, 0))
-        due_at = timezone.make_aware(datetime(2017, 1, 1, 10, 0, 0))
+        start_at = timezone.make_aware(datetime(2017, 8, 2, 8, 0, 0))
+        due_at = timezone.make_aware(datetime(2017, 8, 2, 13, 0, 0))
 
         next_start_at = start_at + timedelta(days=7)
         next_due_at = due_at + timedelta(days=7)
@@ -139,9 +139,11 @@ class ActionModelTests(TestCase):
         self.assertIs(action_recurrence.status, action.STATUS_COMPLETED)
         self.assertEqual(action_recurrence.start_at, start_at)
         self.assertEqual(action_recurrence.due_at, due_at)
-        self.assertEqual(action.start_at, next_start_at)
-        self.assertEqual(action.due_at, next_due_at)
-        self.assertEqual(action.completed_at, None)
+
+        new_action = Action.objects.get(pk=action.id)
+        self.assertEqual(new_action.start_at, next_start_at)
+        self.assertEqual(new_action.due_at, next_due_at)
+        self.assertEqual(new_action.completed_at, None)
 
     @freeze_time("2017-01-02 10:00:00")
     def test_complete_task_monthly_recurrence(self):

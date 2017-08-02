@@ -54,10 +54,10 @@ class Action(models.Model):
                     due_at=self.due_at
                 )
                 action_recurrence.save()
-                self.status = self.STATUS_OPEN
                 recur_date = self.recurrence.after(timezone.make_naive(self.start_at), inc=False)
                 self.start_at = timezone.make_aware(datetime.combine(recur_date, self.start_at.time()))
                 self.due_at = timezone.make_aware(datetime.combine(recur_date, self.due_at.time())) if self.due_at else None
+                self.status = self.STATUS_OPEN
             else:
                 self.completed_at = timezone.now()
 
@@ -68,8 +68,6 @@ class Action(models.Model):
         if is_new and self.priority == 0:
             self.priority = self.id * 10000
             super(Action, self).save()
-
-
 
 class ActionRecurrence(models.Model):
     action = models.ForeignKey(Action)
