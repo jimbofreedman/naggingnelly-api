@@ -107,8 +107,8 @@ class ActionModelTests(TestCase):
         )
 
         pattern = recurrence.Recurrence(
-            dtstart=datetime(2014, 1, 2, 0, 0, 0),
-            dtend=datetime(2150, 1, 3, 0, 0, 0),
+            #dtstart=datetime(2014, 1, 2, 0, 0, 0),
+            #dtend=datetime(2150, 1, 3, 0, 0, 0),
             rrules=[myrule, ]
         )
 
