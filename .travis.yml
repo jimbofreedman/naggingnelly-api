@@ -1,11 +1,23 @@
 sudo: true
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq build-essential gettext python-dev zlib1g-dev libpq-dev xvfb
-  - sudo apt-get install -qq libtiff4-dev libjpeg8-dev libfreetype6-dev liblcms1-dev libwebp-dev
-  - sudo apt-get install -qq graphviz-dev python-setuptools python3-dev python-virtualenv python-pip
-  - sudo apt-get install -qq firefox automake libtool libreadline6 libreadline6-dev libreadline-dev
-  - sudo apt-get install -qq libsqlite3-dev libxml2 libxml2-dev libssl-dev libbz2-dev wget curl llvm
+- sudo apt-get update -qq
+- sudo apt-get install -qq build-essential gettext python-dev zlib1g-dev libpq-dev
+  xvfb
+- sudo apt-get install -qq libtiff4-dev libjpeg8-dev libfreetype6-dev liblcms1-dev
+  libwebp-dev
+- sudo apt-get install -qq graphviz-dev python-setuptools python3-dev python-virtualenv
+  python-pip
+- sudo apt-get install -qq firefox automake libtool libreadline6 libreadline6-dev
+  libreadline-dev
+- sudo apt-get install -qq libsqlite3-dev libxml2 libxml2-dev libssl-dev libbz2-dev
+  wget curl llvm
 language: python
 python:
-  - "3.5"
+- '3.5'
+deploy:
+  provider: heroku
+  api_key:
+    secure: AzmVVaFjeRndO/5C36CJwKBpErPxPlCRhlVKC9vF1d+Hcc9GwEmIRYLNgRT9fNDF3yoHQ5GhUf8vd0ggfUu7zxq9fUyGWd/ACmvsB+m1ujke8YkvCRa+EG/HUS7qclQmC32f0lz6cOxoOY60D/kS90JTUXyyjHTKhkXxsWRXi/odGREYb0YkF2m8KRgQjlGwK3SXVimcGTnn6BuNy44LVeXxLTxiwvTrCTk6JVR+s+8RtPo+23nM+LWhinOX/zMGyP8YI+4rNk80C4+zoJIWU8+/1rhD0VhjY2N3ufguyG8wHD/MAUogzSQz/xjU+FiOUalMWlSyRipZZxYvU06v67ddKQKBGfXMp/x0CB6/J9eAFj6fP7usy0XIWeWcvCJexzEbRo2CsZu+BsOgm0w5VljWyVm9CvbCnz+KMHDRiQMHfqVo3iqIn28HMofx5f1vQhMePQzmJueA82yYva7by4MXzjEU3BZCiYdSAkpLuXQN4LjXRd02KmTcKJljnpMTXp5ScamcfFT+Xyg+8BEPcxjauZFGHnHRO4CwbZTGbBBAC6K0wJ8zhg+8eDIBGAh/H972IT6IZom/VsIEpGzaLRAnjuHxuDtqfUFlNU2FUh36XzC2ljGN1bRd0JISgCacTiVQCRKNUzr/WVIZEZQhYx1sx5VwU8Q5S/jN4CMNMDc=
+  app: naggingnelly-api
+  on:
+    repo: jimbofreedman/naggingnelly-api
