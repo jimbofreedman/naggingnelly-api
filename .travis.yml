@@ -11,6 +11,8 @@ before_install:
   libreadline-dev
 - sudo apt-get install -qq libsqlite3-dev libxml2 libxml2-dev libssl-dev libbz2-dev
   wget curl llvm
+script:
+- python manage.py test
 language: python
 python:
 - '3.5'
