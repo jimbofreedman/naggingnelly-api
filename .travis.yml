@@ -11,7 +11,7 @@ before_install:
   libreadline-dev
 - sudo apt-get install -qq libsqlite3-dev libxml2 libxml2-dev libssl-dev libbz2-dev
   wget curl llvm
-env
+env:
 - DJANGO_SETTINGS_MODULE=config.settings.test
 script:
 - python manage.py test
