@@ -8,6 +8,7 @@ make
 make install
 
 mkdir -p $1/.profile.d
+echo $1
 script=$1/.profile.d/graphviz.sh
 echo "PATH=/app/$install_dir/usr/bin:\$PATH" >"$script"
 # The variable GRAPHVIZ_DOT is needed by some applications (e.g. PlantUML)
@@ -16,6 +17,6 @@ echo "export GRAPHVIZ_DOT=/app/$install_dir/usr/bin/dot" >>"$script"
 ((${#packages[@]} > 1)) &&
   echo "export LD_LIBRARY_PATH=/app/$install_dir/usr/lib:\$LD_LIBRARY_PATH" >>"$script"
 
-echo "Successfully installed Graphviz $graphviz_version" | a
-echo "Verify installation with \"heroku run dot -V\"" | i
+echo "Successfully installed Graphviz $graphviz_version"
+echo "Verify installation with \"heroku run dot -V\""
 echo
