@@ -1,4 +1,5 @@
 # install_dir=graphviz
+mkdir -p /app/.heroku/vendor/bin
 
 wget http://www.graphviz.org/pub/graphviz/stable/SOURCES/graphviz-2.40.1.tar.gz
 tar -zxf graphviz-2.40.1.tar.gz
