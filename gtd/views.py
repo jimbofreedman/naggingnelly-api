@@ -44,7 +44,7 @@ class ActionViewSet(viewsets.ModelViewSet):
 
 
     def _get_graph(self, format):
-        dot = Digraph(format=format, comment='Tasks')
+        dot = Digraph(format=format, comment='Tasks', graph_attr={"rankdir": "LR"})
         actions = self.get_queryset().filter(status=Action.STATUS_OPEN)
         for a in actions:
             dot.node(str(a.id), a.short_description)
