@@ -1,4 +1,4 @@
-# install_dir=graphviz
+install_dir=graphviz
 mkdir -p /app/.heroku/vendor/bin
 
 BASE_DIR=`pwd`
@@ -10,7 +10,7 @@ make
 mkdir -p $BASE_DIR/tmpdestdir/usr/local/bin
 make install DESTDIR=$BASE_DIR/tmpdestdir
 popd
-cp -R "tmpdestdir" "$BUILD_DIR/graphviz"
+cp -R "tmpdestdir" "$BUILD_DIR/$install_dir"
 
 script=$BUILD_DIR/.profile.d/graphviz.sh
 echo "PATH=/app/$install_dir/usr/local/bin:\$PATH" > "$script"
