@@ -5,7 +5,7 @@ BASE_DIR=`pwd`
 wget http://www.graphviz.org/pub/graphviz/stable/SOURCES/graphviz-2.40.1.tar.gz
 tar -zxf graphviz-2.40.1.tar.gz
 pushd graphviz-2.40.1
-./configure --disable-shared
+./configure
 make
 mkdir -p $BASE_DIR/tmpdestdir/usr/local/bin
 make install DESTDIR=$BASE_DIR/tmpdestdir
