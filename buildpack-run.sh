@@ -9,4 +9,4 @@ pushd graphviz-2.40.1
 make
 make install DESTDIR=$BASE_DIR/tmpdestdir
 popd
-cp -R "tempdestdir" "$BUILD_DIR/graphviz"
+cp -R "tmpdestdir" "$BUILD_DIR/graphviz"
