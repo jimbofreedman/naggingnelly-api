@@ -7,6 +7,7 @@ tar -zxf graphviz-2.40.1.tar.gz
 pushd graphviz-2.40.1
 ./configure --disable-shared
 make
+mkdir -p $BASE_DIR/tmpdestdir/usr/local/bin
 make install DESTDIR=$BASE_DIR/tmpdestdir
 popd
 cp -R "tmpdestdir" "$BUILD_DIR/graphviz"
