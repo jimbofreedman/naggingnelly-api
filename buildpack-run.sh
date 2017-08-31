@@ -12,6 +12,6 @@ popd
 cp -R "tmpdestdir" "$BUILD_DIR/graphviz"
 
 script=$BUILD_DIR/.profile.d/graphviz.sh
-echo "PATH=$BUILD_DIR/$install_dir/usr/local/bin:\$PATH" > "$script"
-echo "export GRAPHVIZ_DOT=$BUILD_DIR/$install_dir/usr/local/bin/dot" >> "$script"
-echo "export LD_LIBRARY_PATH=$BUILD_DIR/$install_dir/usr/local/lib:\$LD_LIBRARY_PATH" >> "$script"
+echo "PATH=/app/$install_dir/usr/local/bin:\$PATH" > "$script"
+echo "export GRAPHVIZ_DOT=/app/$install_dir/usr/local/bin/dot" >> "$script"
+echo "export LD_LIBRARY_PATH=/app/$install_dir/usr/local/lib:\$LD_LIBRARY_PATH" >> "$script"
