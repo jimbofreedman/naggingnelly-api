@@ -9,9 +9,12 @@ pushd graphviz-2.40.1
 make
 mkdir -p $BASE_DIR/tmpdestdir/usr/local/bin
 make install DESTDIR=$BASE_DIR/tmpdestdir
-dot -c
 popd
 cp -R "tmpdestdir" "$BUILD_DIR/$install_dir"
+
+cd "$BUILD_DIR/$install_dir"
+export LD_LIBRARY_PATH="$BUILD_DIR/$install_dir/usr/local/lib:\$LD_LIBRARY_PATH"
+"$BUILD_DIR/$install_dir"/usr/bin/dot -c
 
 script=$BUILD_DIR/.profile.d/graphviz.sh
 echo "PATH=/app/$install_dir/usr/local/bin:\$PATH" > "$script"
