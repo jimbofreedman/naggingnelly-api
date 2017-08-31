@@ -10,3 +10,8 @@ make
 make install DESTDIR=$BASE_DIR/tmpdestdir
 popd
 cp -R "tmpdestdir" "$BUILD_DIR/graphviz"
+
+script=$BUILD_DIR/.profile.d/graphviz.sh
+echo "PATH=$BUILD_DIR/$install_dir/usr/local/bin:\$PATH" > "$script"
+echo "export GRAPHVIZ_DOT=$BUILD_DIR/$install_dir/usr/local/bin/dot" >> "$script"
+echo "export LD_LIBRARY_PATH=$BUILD_DIR/$install_dir/usr/local/lib:\$LD_LIBRARY_PATH" >> "$script"
