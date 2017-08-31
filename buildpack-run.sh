@@ -7,9 +7,9 @@ cd graphviz-2.40.1
 make
 make install
 
-mkdir -p $1/.profile.d
-echo $1
-script=$1/.profile.d/graphviz.sh
+mkdir -p $BUILD_DIR/.profile.d
+echo $BUILD_DIR
+script=$BUILD_DIR/.profile.d/graphviz.sh
 echo "PATH=/app/$install_dir/usr/bin:\$PATH" >"$script"
 # The variable GRAPHVIZ_DOT is needed by some applications (e.g. PlantUML)
 echo "export GRAPHVIZ_DOT=/app/$install_dir/usr/bin/dot" >>"$script"
