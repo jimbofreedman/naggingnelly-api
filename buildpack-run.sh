@@ -9,6 +9,7 @@ pushd graphviz-2.40.1
 make
 mkdir -p $BASE_DIR/tmpdestdir/usr/local/bin
 make install DESTDIR=$BASE_DIR/tmpdestdir
+dot -c
 popd
 cp -R "tmpdestdir" "$BUILD_DIR/$install_dir"
 
