@@ -1,8 +1,66 @@
 from datetime import datetime, date, timedelta
 from recurrence.fields import RecurrenceField
 from django.db import models
+from django.db.models.signals import post_save
 from django.utils import timezone
 from api.users.models import User
+
+
+class GtdUser(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    user = models.OneToOneField(User, related_name="gtd_user")
+
+    bin = models.OneToOneField('Folder', related_name="bin_owner")
+    collectbox = models.OneToOneField('Folder', related_name="collectbox_owner")
+    actions = models.OneToOneField('Folder', related_name="actions_owner")
+    waiting_for = models.OneToOneField(
+        'Folder', related_name="waitingfor_owner")
+    tickler = models.OneToOneField('Folder', related_name="tickler_owner")
+    someday = models.OneToOneField('Folder', related_name="someday_owner")
+
+    def __str__(self):
+        return self.user.username
+
+
+class Folder(models.Model):
+    BIN = 0
+    COLLECTBOX = 1
+    ACTIONS = 2
+    WAITING_FOR = 3
+    TICKLER = 4
+    SOMEDAY = 5
+    SPECIAL_FOLDER_CHOICES = (
+        (BIN, "Bin"),
+        (COLLECTBOX, "Collectbox"),
+        (ACTIONS, "Actions"),
+        (WAITING_FOR, "Waiting For"),
+        (TICKLER, "Tickler"),
+        (SOMEDAY, "Someday")
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    owner = models.ForeignKey(User)
+    name = models.CharField(max_length=100)
+
+    special_type = models.PositiveSmallIntegerField(choices=SPECIAL_FOLDER_CHOICES, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Context(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    owner = models.ForeignKey(User)
+    name = models.CharField(max_length=100)
+    glyph = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 
 # Create your models here.
 class Action(models.Model):
@@ -33,10 +91,9 @@ class Action(models.Model):
     recurrence = RecurrenceField(null=True, blank=True)
 
     dependencies = models.ManyToManyField('self',
-                                           symmetrical=False,
-                                           related_name='depends_on',
-                                           blank=True)
-
+                                          symmetrical=False,
+                                          related_name='depends_on',
+                                          blank=True)
 
     def __str__(self):
         return self.short_description
@@ -60,7 +117,8 @@ class Action(models.Model):
                 action_recurrence.save()
                 recur_date = self.recurrence.after(timezone.make_naive(self.start_at), inc=False)
                 self.start_at = timezone.make_aware(datetime.combine(recur_date, self.start_at.time()))
-                self.due_at = timezone.make_aware(datetime.combine(recur_date, self.due_at.time())) if self.due_at else None
+                self.due_at = timezone.make_aware(
+                    datetime.combine(recur_date, self.due_at.time())) if self.due_at else None
                 self.status = self.STATUS_OPEN
             else:
                 self.completed_at = timezone.now()
@@ -73,6 +131,7 @@ class Action(models.Model):
             self.priority = self.id * 10000
             super(Action, self).save()
 
+
 class ActionRecurrence(models.Model):
     action = models.ForeignKey(Action)
     status = models.IntegerField(choices=Action.STATUS_CHOICES)
@@ -80,3 +139,38 @@ class ActionRecurrence(models.Model):
     start_at = models.DateTimeField(null=True, blank=True)
     due_at = models.DateTimeField(null=True, blank=True)
     completed_at = models.DateTimeField(auto_now_add=True)
+
+
+def create_user(sender, instance, created, **kwargs):
+    if not created:
+        return
+
+    Context.objects.create(name="Agenda", owner=instance)
+    Context.objects.create(name="Calls", owner=instance)
+    Context.objects.create(name="Computer", owner=instance)
+    Context.objects.create(name="Errand", owner=instance)
+    Context.objects.create(name="Home", owner=instance)
+    Context.objects.create(name="Office", owner=instance)
+    Context.objects.create(name="Read/Review", owner=instance)
+    Context.objects.create(name="Shopping", owner=instance)
+
+    bin1 = Folder.objects.create(
+        name="Bin", special_type=Folder.BIN, owner=instance)
+    collectbox = Folder.objects.create(
+        name="Collectbox", special_type=Folder.COLLECTBOX, owner=instance)
+    actions = Folder.objects.create(
+        name="Actions", special_type=Folder.ACTIONS, owner=instance)
+    waiting_for = Folder.objects.create(
+        name="Waiting For", special_type=Folder.WAITING_FOR, owner=instance)
+    tickler = Folder.objects.create(
+        name="Tickler", special_type=Folder.TICKLER, owner=instance)
+    someday = Folder.objects.create(
+        name="Someday", special_type=Folder.SOMEDAY, owner=instance)
+
+    gtd_user = GtdUser.objects.create(
+        user=instance, bin=bin1, collectbox=collectbox, actions=actions,
+        waiting_for=waiting_for, tickler=tickler, someday=someday)
+
+
+post_save.connect(create_user, sender=User,
+                  dispatch_uid="gtd_create_user")
