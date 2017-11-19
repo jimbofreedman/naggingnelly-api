@@ -12,14 +12,15 @@ Production Configurations
 
 from boto.s3.connection import OrdinaryCallingFormat
 
+
 from .base import *  # noqa
-from storages.backends.s3boto import S3BotoStorage
 
 # SECRET CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Raises ImproperlyConfigured exception if DJANGO_SECRET_KEY not in os.environ
 SECRET_KEY = env('DJANGO_SECRET_KEY')
+
 
 # This ensures that Django will be able to detect a secure connection
 # properly on Heroku.
@@ -37,6 +38,7 @@ OPBEAT = {
     'SECRET_TOKEN': env('DJANGO_OPBEAT_SECRET_TOKEN')
 }
 MIDDLEWARE = ['opbeat.contrib.django.middleware.OpbeatAPMMiddleware', ] + MIDDLEWARE
+
 
 # SECURITY CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -66,6 +68,7 @@ ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['api.naggingnelly.com'
 
 INSTALLED_APPS += ['gunicorn', ]
 
+
 # STORAGE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Uploaded Media Files
@@ -91,22 +94,20 @@ AWS_HEADERS = {
     'Cache-Control': bytes(control, encoding='latin-1')
 }
 
-
 # URL that handles the media served from MEDIA_ROOT, used for managing
 # stored files.
-# MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
-def StaticRootS3BotoStorage(): return S3BotoStorage(location='static')
-
-
-def MediaRootS3BotoStorage(): return S3BotoStorage(location='media')
-
+#MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
+from storages.backends.s3boto import S3BotoStorage
+StaticRootS3BotoStorage = lambda: S3BotoStorage(location='static')
+MediaRootS3BotoStorage = lambda: S3BotoStorage(location='media')
 DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
 
 MEDIA_URL = 'https://s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
 
+
 # Static Assets
 # ------------------------
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = 'https://s3.amazonaws.com/%s/static/' % AWS_STORAGE_BUCKET_NAME
 STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
 # See: https://github.com/antonagestam/collectfast
@@ -114,6 +115,8 @@ STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
 # 'django.contrib.staticfiles'
 AWS_PRELOAD_METADATA = True
 INSTALLED_APPS = ['collectfast', ] + INSTALLED_APPS
+
+
 
 # EMAIL
 # ------------------------------------------------------------------------------
@@ -158,10 +161,11 @@ CACHES = {
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
             'IGNORE_EXCEPTIONS': True,  # mimics memcache behavior.
-            # http://niwinz.github.io/django-redis/latest/#_memcached_exceptions_behavior
+                                        # http://niwinz.github.io/django-redis/latest/#_memcached_exceptions_behavior
         }
     }
 }
+
 
 # LOGGING CONFIGURATION
 # ------------------------------------------------------------------------------
