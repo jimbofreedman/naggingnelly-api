@@ -54,10 +54,6 @@ class ActionViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    def perform_destroy(self, instance):
-        instance.folder = instance.owner.gtd_user.bin
-        instance.save()
-
     def get_queryset(self):
         if self.request.user.is_authenticated():
             return self.request.user.action_set.all()
