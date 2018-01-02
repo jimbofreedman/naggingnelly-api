@@ -23,4 +23,5 @@ class ContextSerializer(serializers.ModelSerializer):
 class ActionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Action
-        fields = ['id', 'short_description', 'status', 'priority', 'start_at', 'due_at', 'recurrence', 'dependencies']
+        fields = ['id', 'short_description', 'status', 'priority', 'start_at', 'due_at', 'recurrence', 'dependencies',
+                  'folder', 'context']

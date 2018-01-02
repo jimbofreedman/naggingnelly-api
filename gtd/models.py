@@ -86,6 +86,9 @@ class Action(models.Model):
     short_description = models.CharField(max_length=100)
     status = models.IntegerField(choices=STATUS_CHOICES, default=STATUS_OPEN)
 
+    folder = models.ForeignKey(Folder)
+    context = models.ForeignKey(Context)
+
     priority = models.IntegerField(default=0)
 
     recurrence = RecurrenceField(null=True, blank=True)
