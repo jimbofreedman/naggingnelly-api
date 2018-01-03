@@ -2,9 +2,9 @@ install_dir=graphviz
 mkdir -p /app/.heroku/vendor/bin
 
 BASE_DIR=`pwd`
-wget http://www.graphviz.org/pub/graphviz/stable/SOURCES/graphviz-2.40.1.tar.gz
-tar -zxf graphviz-2.40.1.tar.gz
-pushd graphviz-2.40.1
+wget https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
+tar -zxf graphviz.tar.gz
+pushd graphviz
 ./configure
 make
 mkdir -p $BASE_DIR/tmpdestdir/usr/local/bin
