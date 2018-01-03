@@ -4,7 +4,7 @@ mkdir -p /app/.heroku/vendor/bin
 BASE_DIR=`pwd`
 wget https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
 tar -zxf graphviz.tar.gz
-pushd graphviz
+pushd graphviz-2.40.1
 ./configure
 make
 mkdir -p $BASE_DIR/tmpdestdir/usr/local/bin
