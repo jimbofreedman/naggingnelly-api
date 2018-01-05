@@ -19,6 +19,7 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^gtd/', include('gtd.urls')),
+    url(r'^badthing/', include('badthing.urls')),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

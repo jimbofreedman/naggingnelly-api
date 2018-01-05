@@ -62,6 +62,7 @@ LOCAL_APPS = [
     'api.users.apps.UsersConfig',
     # Your stuff: custom apps go here
     'gtd',
+    'badthing',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
