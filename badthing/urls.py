@@ -8,4 +8,3 @@ router.register(r'bad_things', views.BadThingViewSet, base_name='bad_things')
 
 app_name = "badthing"
 urlpatterns = [url(r'^', include(router.urls))]
-g
