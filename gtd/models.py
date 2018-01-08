@@ -84,7 +84,7 @@ class Action(models.Model):
 
     owner = models.ForeignKey(User)
     short_description = models.CharField(max_length=100)
-    notes = models.TextField(default="")
+    notes = models.TextField(default="", blank=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=STATUS_OPEN)
 
     folder = models.ForeignKey(Folder)
