@@ -1,6 +1,7 @@
 from django.db import models
 from api.users.models import User
 
+
 # Create your models here.
 class BadThingType(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -11,6 +12,7 @@ class BadThingType(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class BadThing(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
