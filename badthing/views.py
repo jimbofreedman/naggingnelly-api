@@ -17,6 +17,7 @@ class BadThingTypeViewSet(viewsets.ModelViewSet):
         else:
             return None
 
+
 class BadThingViewSet(viewsets.ModelViewSet):
     serializer_class = BadThingSerializer
 
