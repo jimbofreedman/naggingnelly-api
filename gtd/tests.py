@@ -19,7 +19,9 @@ class ActionModelTests(TestCase):
 
         action = Action.objects.create(
             owner=user,
-            short_description="Test Action"
+            short_description="Test Action",
+            context=user.context_set.first(),
+            folder=user.folder_set.first()
         )
 
         action.save()
@@ -34,7 +36,9 @@ class ActionModelTests(TestCase):
         action = Action.objects.create(
             owner=user,
             short_description="Test Action",
-            priority=-10
+            priority=-10,
+            context=user.context_set.first(),
+            folder=user.folder_set.first()
         )
 
         action.save()
@@ -47,7 +51,9 @@ class ActionModelTests(TestCase):
 
         action = Action.objects.create(
             owner=user,
-            short_description="Test Action"
+            short_description="Test Action",
+            context=user.context_set.first(),
+            folder=user.folder_set.first()
         )
 
         action.save()
@@ -84,7 +90,9 @@ class ActionModelTests(TestCase):
             short_description="Test Action",
             recurrence=pattern,
             start_at=start_at,
-            due_at=due_at
+            due_at=due_at,
+            context=user.context_set.first(),
+            folder=user.folder_set.first()
         )
         action.save()
         self.assertIs(action.status, action.STATUS_OPEN)
@@ -127,7 +135,9 @@ class ActionModelTests(TestCase):
             short_description="Test Action",
             recurrence=pattern,
             start_at=start_at,
-            due_at=due_at
+            due_at=due_at,
+            context=user.context_set.first(),
+            folder=user.folder_set.first()
         )
         action.save()
         self.assertIs(action.status, action.STATUS_OPEN)
@@ -172,7 +182,9 @@ class ActionModelTests(TestCase):
             short_description="Test Action",
             recurrence=pattern,
             start_at=start_at,
-            due_at=due_at
+            due_at=due_at,
+            context=user.context_set.first(),
+            folder=user.folder_set.first()
         )
         action.save()
         self.assertIs(action.status, action.STATUS_OPEN)
