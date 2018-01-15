@@ -97,7 +97,7 @@ class ActionModelTests(TestCase):
         action.status = action.STATUS_COMPLETED
         action.save()
         self.assertIs(action.status, action.STATUS_OPEN)
-        action_recurrence = ActionRecurrence.objects.get(pk=1)
+        action_recurrence = ActionRecurrence.objects.get(action=action)
         self.assertIs(action_recurrence.action.id, action.id)
         self.assertIs(action_recurrence.status, action.STATUS_COMPLETED)
         self.assertEqual(action_recurrence.start_at, start_at)
@@ -142,7 +142,7 @@ class ActionModelTests(TestCase):
         action.status = action.STATUS_COMPLETED
         action.save()
         self.assertIs(action.status, action.STATUS_OPEN)
-        action_recurrence = ActionRecurrence.objects.get(pk=1)
+        action_recurrence = ActionRecurrence.objects.get(action=action)
         self.assertIs(action_recurrence.action.id, action.id)
         self.assertIs(action_recurrence.status, action.STATUS_COMPLETED)
         self.assertEqual(action_recurrence.start_at, start_at)
