@@ -10,8 +10,8 @@ import recurrence
 from .models import Action, ActionRecurrence
 from api.users.models import User
 
-class ActionModelTests(TestCase):
 
+class ActionModelTests(TestCase):
     def test_new_task_priority(self):
         user = User.objects.create(
                 email="blah@blah.com"
@@ -26,7 +26,6 @@ class ActionModelTests(TestCase):
 
         action.save()
         self.assertEqual(action.priority, action.id * 10000)
-
 
     def test_new_task_specified_priority(self):
         user = User.objects.create(
@@ -61,7 +60,6 @@ class ActionModelTests(TestCase):
         action.status = action.STATUS_COMPLETED
         action.save()
         self.assertIs(action.status, action.STATUS_COMPLETED)
-
 
     @freeze_time("2017-01-01 10:00:00")
     def test_complete_task_daily_recurrence(self):
@@ -115,8 +113,8 @@ class ActionModelTests(TestCase):
         )
 
         pattern = recurrence.Recurrence(
-            #dtstart=datetime(2014, 1, 2, 0, 0, 0),
-            #dtend=datetime(2150, 1, 3, 0, 0, 0),
+            # dtstart=datetime(2014, 1, 2, 0, 0, 0),
+            # dtend=datetime(2150, 1, 3, 0, 0, 0),
             rrules=[myrule, ]
         )
 
@@ -199,6 +197,3 @@ class ActionModelTests(TestCase):
         self.assertEqual(action.start_at, next_start_at)
         self.assertEqual(action.due_at, next_due_at)
         self.assertEqual(action.completed_at, None)
-
-
-

@@ -24,10 +24,8 @@ class CeleryConfig(AppConfig):
         installed_apps = [app_config.name for app_config in apps.get_app_configs()]
         app.autodiscover_tasks(lambda: installed_apps, force=True)
 
-        
-
         if hasattr(settings, 'OPBEAT'):
-# Since opbeat is required in production only,
+            # Since opbeat is required in production only,
             # imports might (most surely will) be wiped out
             # during PyCharm code clean up started
             # in other environments.
@@ -36,7 +34,7 @@ class CeleryConfig(AppConfig):
             from opbeat.contrib.django.models import logger as opbeat_logger
             from opbeat.contrib.django.models import register_handlers as opbeat_register_handlers
             from opbeat.contrib.celery import register_signal as opbeat_register_signal
-# @formatter:on
+            # @formatter:on
 
             try:
                 opbeat_register_signal(opbeat_client)

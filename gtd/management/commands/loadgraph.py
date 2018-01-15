@@ -16,7 +16,6 @@ class Command(BaseCommand):
             return Action.objects.create(owner=user,
                                          short_description=desc)
 
-
     def handle(self, *args, **options):
         with options.get('stdin', sys.stdin) as f:
             graph = f.read()
@@ -27,4 +26,3 @@ class Command(BaseCommand):
 
             second.dependencies.add(first)
             second.save()
-
