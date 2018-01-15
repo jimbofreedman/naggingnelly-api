@@ -110,7 +110,8 @@ class Action(models.Model):
             if (self.recurrence is not None and len(self.recurrence.rrules) > 0 and self.start_at):
                 # Possible to create recurrence without dtstart, then it recurs to same date
                 if self.recurrence.dtstart is None:
-                    self.recurrence.dtstart = datetime(2017, 1, 1)
+                    self.recurrence.dtstart = datetime.combine(timezone.make_naive(self.due_at).date(),
+                                                               datetime.min.time())
 
                 action_recurrence = ActionRecurrence.objects.create(
                     action=self,

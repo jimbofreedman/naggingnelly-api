@@ -106,6 +106,51 @@ class ActionModelTests(TestCase):
         self.assertEqual(action.due_at, next_due_at)
         self.assertEqual(action.completed_at, None)
 
+    @freeze_time("2018-01-15 13:00:00")
+    def test_complete_task_limited_daily_recurrence(self):
+        myrule = recurrence.Rule(
+            freq=recurrence.DAILY,
+            interval=1,
+            count=7
+        )
+
+        pattern = recurrence.Recurrence(
+            rrules=[myrule, ]
+        )
+
+        user = User.objects.create(
+            email="blah@blah.com"
+        )
+
+        start_at = timezone.make_aware(datetime(2018, 1, 15, 4, 0, 0))
+        due_at = timezone.make_aware(datetime(2018, 1, 15, 12, 0, 0))
+
+        next_start_at = timezone.make_aware(datetime.combine(datetime.today() + timedelta(days=1), time(4, 0)))
+        next_due_at = timezone.make_aware(datetime.combine(datetime.today() + timedelta(days=1), time(12, 0)))
+
+        action = Action.objects.create(
+            owner=user,
+            short_description="Test Action",
+            recurrence=pattern,
+            start_at=start_at,
+            due_at=due_at,
+            context=user.context_set.first(),
+            folder=user.folder_set.first()
+        )
+        action.save()
+        self.assertIs(action.status, action.STATUS_OPEN)
+        action.status = action.STATUS_COMPLETED
+        action.save()
+        self.assertIs(action.status, action.STATUS_OPEN)
+        action_recurrence = ActionRecurrence.objects.get(pk=1)
+        self.assertIs(action_recurrence.action.id, action.id)
+        self.assertIs(action_recurrence.status, action.STATUS_COMPLETED)
+        self.assertEqual(action_recurrence.start_at, start_at)
+        self.assertEqual(action_recurrence.due_at, due_at)
+        self.assertEqual(action.start_at, next_start_at)
+        self.assertEqual(action.due_at, next_due_at)
+        self.assertEqual(action.completed_at, None)
+
     @freeze_time("2017-08-02 22:17:51")
     def test_complete_task_weekly_recurrence(self):
         myrule = recurrence.Rule(
