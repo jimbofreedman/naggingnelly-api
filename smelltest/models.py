@@ -1,8 +1,13 @@
 from django.db import models
 
 
+class ScentGroup(models.Model):
+    name = models.CharField(max_length=30)
+
+
 class Scent(models.Model):
     name = models.CharField(max_length=30)
+    # group = models.ForeignKey(ScentGroup)
     enabled = models.BooleanField(default=False)
 
     def __str__(self):

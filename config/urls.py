@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^gtd/', include('gtd.urls')),
     url(r'^badthing/', include('badthing.urls')),
+    url(r'^smelltest/', include('smelltest.urls')),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
