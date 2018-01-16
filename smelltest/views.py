@@ -14,7 +14,7 @@ def index(request):
 
 
 def data(request):
-    scents = Scent.objects.all()
+    scents = Scent.objects.order_by('id')
     test_results = TestResult.objects.values('scent', 'guess').annotate(Count('scent'))
 
     ret = {
