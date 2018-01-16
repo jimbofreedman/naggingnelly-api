@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Scent, TestResult
+from .models import ScentGroup, Scent, TestResult
 
+admin.site.register(ScentGroup)
 admin.site.register(TestResult)
 
 
