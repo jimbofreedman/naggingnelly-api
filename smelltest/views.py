@@ -18,7 +18,11 @@ def data(request):
     test_results = TestResult.objects.values('scent', 'guess').annotate(Count('scent'))
 
     ret = {
-        'nodes': [{'name': s.name, 'group': 1} for s in scents],
+        'nodes': [{
+            'name': s.name,
+            'group': 1,
+            'testCount': s.tests.count()
+        } for s in scents],
         'links': [{
             'source': r['scent'] - 1,  # 0-index array vs 1-index table PK
             'target': r['guess'] - 1,
