@@ -1,33 +1,48 @@
 {% load static %}
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>Scent Detection Results</title>
+<html>
+<head>
+  <title>D3 in Action Chapter 6 - Example 1</title>
+  <meta charset="utf-8" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+  <script src="https://jdfekete.github.io/reorder.js/lib/d3.v3.js"></script>
+  <script src="https://jdfekete.github.io/reorder.js/lib/d3.parcoords.js"></script>
+  <script src="https://jdfekete.github.io/reorder.js/lib/science.v1.js"></script>
+  <script src="https://jdfekete.github.io/reorder.js/lib/tiny-queue.js"></script>
+  <script src="https://jdfekete.github.io/reorder.js/reorder.v1.js"></script>
+  <script src="https://jdfekete.github.io/reorder.js/examples/matrix.js"></script>
+
+  <script src="{% static "js/d3.layout.adjacencyMatrix.js" %}" type="text/JavaScript"></script>
+</head>
 <style>
-  @import url({% static "css/style.css" %});
-  .background {
-    fill: #eee;
+  svg {
+    height: 1400px;
+    width: 1400px;
+    border: 1px solid gray;
   }
-  line {
-    stroke: #fff;
+  g.am-axis text {
+    font-size: 8px;
   }
-  text.active {
-    fill: red;
-    font-size: 120%;
-  }
-  rect.highlight {
+
+  .domain {
     fill: none;
-    stroke: red;
-    stroke-width: 2;
   }
+
+  .tick > line{
+    stroke: black;
+    stroke-width: 1px;
+    stroke-opacity: .25;
+  }
+
 </style>
-<script src="https://jdfekete.github.io/reorder.js/lib/d3.v3.js"></script>
-<script src="https://jdfekete.github.io/reorder.js/lib/d3.parcoords.js"></script>
-<script src="https://jdfekete.github.io/reorder.js/lib/science.v1.js"></script>
-<script src="https://jdfekete.github.io/reorder.js/lib/tiny-queue.js"></script>
-<script src="https://jdfekete.github.io/reorder.js/reorder.v1.js"></script>
-<script src="https://jdfekete.github.io/reorder.js/examples/matrix.js"></script>
-<div>
-  Order: <select id="order">
+<body>
+
+<div id="viz">
+  <svg>
+  </svg>
+</div>
+<div id="controls">
+  <p>Order: <select id="order">
     <option value="name">by Name</option>
     <option value="count">by Frequency</option>
     <option value="group">by Cluster</option>
@@ -38,7 +53,7 @@
     <option value="spectral">Spectral</option>
   </select>
 
-  Distance: <select id="distance">
+  <p>Distance: <select id="distance">
     <option value="manhattan" selected="true">Manhattan</option>
     <option value="euclidean">Euclidean</option>
     <option value="chebyshev">Chebyshev</option>
@@ -47,19 +62,63 @@
     <option value="braycurtis">Braycurtis</option>
   </select>
 </div>
-<script>
-  var margin = {top: 80, right: 0, bottom: 10, left: 80},
-    width = 720,
-    height = 720;
-  var x = d3.scale.ordinal().rangeBands([0, width]),
-    z = d3.scale.linear().domain([0, 4]).clamp(true),
-    c = d3.scale.category10().domain(d3.range(10));
-  var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .style("margin-left", -margin.left + "px")
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-  d3.json("data", loadJson);
-</script>
+</body>
+<footer>
+
+  <script>
+    d3.json("data", createAdjacencyMatrix);
+
+    function createAdjacencyMatrix(data) {
+
+      var adjacencyMatrix = d3.layout.adjacencyMatrix()
+        .size([800,800])
+        .nodes(data.nodes)
+        .links(data.links)
+        .edgeWeight(function(d) { return d.value; })
+        .directed(true)
+        .nodeID(function (d) { return d.name });
+
+      var matrixData = adjacencyMatrix();
+
+      var highestCorrectWeight = d3.max(data.links, function(d) { return d.source.name === d.target.name ? d.value : 0; });
+      var highestWeightWeight = d3.max(data.links, function(d) { return d.source.name != d.target.name ? d.value : 0; });
+
+
+      var correctColors = d3.scale.linear().domain([0,highestCorrectWeight])
+        .interpolate(d3.interpolateHcl)
+        .range([d3.rgb("#000000"), d3.rgb('#00ff00')]);
+      var wrongColors = d3.scale.linear().domain([0,highestWeightWeight])
+        .interpolate(d3.interpolateHcl)
+        .range([d3.rgb("#000000"), d3.rgb('#ff0000')]);
+
+      d3.select("svg")
+        .append("g")
+        .attr("transform", "translate(50,50)")
+        .attr("id", "adjacencyG")
+        .selectAll("rect")
+        .data(matrixData)
+        .enter()
+        .append("rect")
+        .attr("width", function (d) { return d.width })
+        .attr("height", function (d) { return d.height })
+        .attr("x", function (d) { return d.x })
+        .attr("y", function (d) { return d.y })
+        .style("stroke", "black")
+        .style("stroke-width", "1px")
+        .style("stroke-opacity", .1)
+        .style("fill", function (d) {
+            return d.source.name === d.target.name ? correctColors(d.weight) : wrongColors(d.weight)
+        })
+        .style("fill-opacity", function (d) { return d.weight * .8 });
+
+      d3.select("#adjacencyG")
+        .call(adjacencyMatrix.xAxis);
+
+      d3.select("#adjacencyG")
+        .call(adjacencyMatrix.yAxis);
+
+
+    }
+  </script>
+</footer>
 
