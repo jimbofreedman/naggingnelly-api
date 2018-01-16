@@ -63,6 +63,7 @@ LOCAL_APPS = [
     # Your stuff: custom apps go here
     'gtd',
     'badthing',
+    'smelltest',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
