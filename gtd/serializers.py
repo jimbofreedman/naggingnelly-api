@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import GtdUser, Folder, Context, Action
+
+from .models import Action, Context, Folder, GtdUser
 
 
 class GtdUserSerializer(serializers.ModelSerializer):

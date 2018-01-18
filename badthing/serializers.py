@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import BadThingType, BadThing
+
+from .models import BadThing, BadThingType
 
 
 class BadThingTypeSerializer(serializers.ModelSerializer):

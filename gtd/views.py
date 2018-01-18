@@ -1,10 +1,11 @@
-from graphviz import Digraph
 from django.http import HttpResponse, HttpResponseRedirect
+from graphviz import Digraph
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
-from .serializers import GtdUserSerializer, FolderSerializer, ContextSerializer, ActionSerializer
+
 from .models import Action
+from .serializers import ActionSerializer, ContextSerializer, FolderSerializer, GtdUserSerializer
 
 response = HttpResponseRedirect('/dashboard')
 

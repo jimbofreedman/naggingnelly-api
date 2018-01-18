@@ -1,7 +1,9 @@
-import sys
 import re
+import sys
+
 from django.core.management.base import BaseCommand, CommandError
 from gtd.models import Action
+
 from api.users.models import User
 
 

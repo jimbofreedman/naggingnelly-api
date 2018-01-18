@@ -1,14 +1,14 @@
 from datetime import datetime, time, timedelta
 
+import recurrence
 from django.test import TestCase
 from django.utils import timezone
 from freezegun import freeze_time
 
-import recurrence
+from api.users.models import User
 
 # Create your tests here.
 from .models import Action, ActionRecurrence
-from api.users.models import User
 
 
 class ActionModelTests(TestCase):

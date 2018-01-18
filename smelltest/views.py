@@ -1,9 +1,10 @@
 import json
+
+from django.db.models import Count, QuerySet
 from django.http import HttpResponse
 from django.template import loader
-from django.db.models import QuerySet, Count
-from .models import Scent
-from .models import TestResult
+
+from .models import Scent, TestResult
 
 
 def index(request):

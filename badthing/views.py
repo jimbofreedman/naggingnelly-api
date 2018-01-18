@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from rest_framework import viewsets
-from .serializers import BadThingTypeSerializer, BadThingSerializer
+
+from .serializers import BadThingSerializer, BadThingTypeSerializer
 
 response = HttpResponseRedirect('/dashboard')
 
