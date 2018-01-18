@@ -6,6 +6,7 @@ from rest_framework.response import Response
 
 from .models import Action
 from .serializers import ActionSerializer, ContextSerializer, FolderSerializer, GtdUserSerializer
+from api.viewsets import APIViewSet
 
 response = HttpResponseRedirect('/dashboard')
 
@@ -23,11 +24,8 @@ class GtdUserViewSet(viewsets.ModelViewSet):
             return None
 
 
-class FolderViewSet(viewsets.ModelViewSet):
+class FolderViewSet(APIViewSet):
     serializer_class = FolderSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
     def get_queryset(self):
         if self.request.user.is_authenticated():
@@ -36,11 +34,8 @@ class FolderViewSet(viewsets.ModelViewSet):
             return None
 
 
-class ContextViewSet(viewsets.ModelViewSet):
+class ContextViewSet(APIViewSet):
     serializer_class = ContextSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
     def get_queryset(self):
         if self.request.user.is_authenticated():
@@ -49,11 +44,8 @@ class ContextViewSet(viewsets.ModelViewSet):
             return None
 
 
-class ActionViewSet(viewsets.ModelViewSet):
+class ActionViewSet(APIViewSet):
     serializer_class = ActionSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
     def get_queryset(self):
         if self.request.user.is_authenticated():
