@@ -5,6 +5,7 @@ STASH_NAME="pre-commit-$(date +%s)"
 git stash save -q --keep-index $STASH_NAME
 
 # Test prospective commit
+isort -rc .
 pycodestyle
 coverage run manage.py test
 coverage report
