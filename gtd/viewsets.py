@@ -4,9 +4,10 @@ from rest_framework import viewsets
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 
+from api.viewsets import APIViewSet
+
 from .models import Action
 from .serializers import ActionSerializer, ContextSerializer, FolderSerializer, GtdUserSerializer
-from api.viewsets import APIViewSet
 
 response = HttpResponseRedirect('/dashboard')
 
@@ -28,30 +29,21 @@ class FolderViewSet(APIViewSet):
     serializer_class = FolderSerializer
 
     def get_queryset(self):
-        if self.request.user.is_authenticated():
-            return self.request.user.folder_set.all()
-        else:
-            return None
+        return self.request.user.folder_set.all()
 
 
 class ContextViewSet(APIViewSet):
     serializer_class = ContextSerializer
 
     def get_queryset(self):
-        if self.request.user.is_authenticated():
-            return self.request.user.context_set.all()
-        else:
-            return None
+        return self.request.user.context_set.all()
 
 
 class ActionViewSet(APIViewSet):
     serializer_class = ActionSerializer
 
     def get_queryset(self):
-        if self.request.user.is_authenticated():
-            return self.request.user.action_set.all()
-        else:
-            return None
+        return self.request.user.action_set.all()
 
     @detail_route(methods=['post'])
     def complete(self, request, pk=None):

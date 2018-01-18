@@ -1,5 +1,7 @@
-from .serializers import BadThingSerializer, BadThingTypeSerializer
 from api.viewsets import APIViewSet
+
+from .serializers import BadThingSerializer, BadThingTypeSerializer
+
 
 class BadThingTypeViewSet(APIViewSet):
     serializer_class = BadThingTypeSerializer

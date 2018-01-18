@@ -3,56 +3,59 @@ from datetime import datetime, time, timedelta
 import recurrence
 from django.test import TestCase
 from django.utils import timezone
+from faker import Faker
 from freezegun import freeze_time
+# Create your tests here.
+from gtd.models import Action, ActionRecurrence
 
 from api.users.models import User
 
-# Create your tests here.
-from .models import Action, ActionRecurrence
-
 
 class ActionModelTests(TestCase):
-    def test_new_task_priority(self):
-        user = User.objects.create(
-                email="blah@blah.com"
+    def setUp(self):
+        self.faker = Faker()
+        self.user = User.objects.create(username=self.faker.name())
+
+    def test_str(self):
+        name = self.faker.name()
+        action = Action.objects.create(
+            owner=self.user,
+            short_description=name,
+            context=self.user.context_set.first(),
+            folder=self.user.folder_set.first()
         )
+        self.assertEqual(str(action), name)
+
+    def test_new_task_priority(self):
 
         action = Action.objects.create(
-            owner=user,
+            owner=self.user,
             short_description="Test Action",
-            context=user.context_set.first(),
-            folder=user.folder_set.first()
+            context=self.user.context_set.first(),
+            folder=self.user.folder_set.first()
         )
 
         action.save()
         self.assertEqual(action.priority, action.id * 10000)
 
     def test_new_task_specified_priority(self):
-        user = User.objects.create(
-            email="blah@blah.com"
-        )
-
         action = Action.objects.create(
-            owner=user,
+            owner=self.user,
             short_description="Test Action",
             priority=-10,
-            context=user.context_set.first(),
-            folder=user.folder_set.first()
+            context=self.user.context_set.first(),
+            folder=self.user.folder_set.first()
         )
 
         action.save()
         self.assertEqual(action.priority, -10)
 
     def test_complete_task_no_recurrence(self):
-        user = User.objects.create(
-            email="blah@blah.com"
-        )
-
         action = Action.objects.create(
-            owner=user,
+            owner=self.user,
             short_description="Test Action",
-            context=user.context_set.first(),
-            folder=user.folder_set.first()
+            context=self.user.context_set.first(),
+            folder=self.user.folder_set.first()
         )
 
         action.save()
@@ -73,10 +76,6 @@ class ActionModelTests(TestCase):
             rrules=[myrule, ]
         )
 
-        user = User.objects.create(
-            email="blah@blah.com"
-        )
-
         start_at = timezone.make_aware(datetime(2017, 1, 1, 7, 0, 0))
         due_at = timezone.make_aware(datetime(2017, 1, 1, 10, 0, 0))
 
@@ -84,13 +83,13 @@ class ActionModelTests(TestCase):
         next_due_at = timezone.make_aware(datetime.combine(datetime.today() + timedelta(days=1), time(10, 0)))
 
         action = Action.objects.create(
-            owner=user,
+            owner=self.user,
             short_description="Test Action",
             recurrence=pattern,
             start_at=start_at,
             due_at=due_at,
-            context=user.context_set.first(),
-            folder=user.folder_set.first()
+            context=self.user.context_set.first(),
+            folder=self.user.folder_set.first()
         )
         action.save()
         self.assertIs(action.status, action.STATUS_OPEN)
@@ -118,10 +117,6 @@ class ActionModelTests(TestCase):
             rrules=[myrule, ]
         )
 
-        user = User.objects.create(
-            email="blah@blah.com"
-        )
-
         start_at = timezone.make_aware(datetime(2018, 1, 15, 4, 0, 0))
         due_at = timezone.make_aware(datetime(2018, 1, 15, 12, 0, 0))
 
@@ -129,13 +124,13 @@ class ActionModelTests(TestCase):
         next_due_at = timezone.make_aware(datetime.combine(datetime.today() + timedelta(days=1), time(12, 0)))
 
         action = Action.objects.create(
-            owner=user,
+            owner=self.user,
             short_description="Test Action",
             recurrence=pattern,
             start_at=start_at,
             due_at=due_at,
-            context=user.context_set.first(),
-            folder=user.folder_set.first()
+            context=self.user.context_set.first(),
+            folder=self.user.folder_set.first()
         )
         action.save()
         self.assertIs(action.status, action.STATUS_OPEN)
@@ -163,10 +158,6 @@ class ActionModelTests(TestCase):
             rrules=[myrule, ]
         )
 
-        user = User.objects.create(
-            email="blah@blah.com"
-        )
-
         start_at = timezone.make_aware(datetime(2017, 8, 2, 8, 0, 0))
         due_at = timezone.make_aware(datetime(2017, 8, 2, 13, 0, 0))
 
@@ -174,13 +165,13 @@ class ActionModelTests(TestCase):
         next_due_at = due_at + timedelta(days=7)
 
         action = Action.objects.create(
-            owner=user,
+            owner=self.user,
             short_description="Test Action",
             recurrence=pattern,
             start_at=start_at,
             due_at=due_at,
-            context=user.context_set.first(),
-            folder=user.folder_set.first()
+            context=self.user.context_set.first(),
+            folder=self.user.folder_set.first()
         )
         action.save()
         self.assertIs(action.status, action.STATUS_OPEN)
@@ -210,10 +201,6 @@ class ActionModelTests(TestCase):
             rrules=[myrule, ]
         )
 
-        user = User.objects.create(
-            email="blah@blah.com"
-        )
-
         start_at = timezone.make_aware(datetime(2017, 1, 1, 7, 0, 0))
         due_at = timezone.make_aware(datetime(2017, 1, 1, 10, 0, 0))
 
@@ -221,13 +208,13 @@ class ActionModelTests(TestCase):
         next_due_at = due_at + timedelta(days=31)
 
         action = Action.objects.create(
-            owner=user,
+            owner=self.user,
             short_description="Test Action",
             recurrence=pattern,
             start_at=start_at,
             due_at=due_at,
-            context=user.context_set.first(),
-            folder=user.folder_set.first()
+            context=self.user.context_set.first(),
+            folder=self.user.folder_set.first()
         )
         action.save()
         self.assertIs(action.status, action.STATUS_OPEN)
