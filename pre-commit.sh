@@ -4,9 +4,16 @@ set -e
 STASH_NAME="pre-commit-$(date +%s)"
 git stash save -q --keep-index $STASH_NAME
 
-# Test prospective commit
+
+# Check for syntax errors in requirements files
+pip install -r requirements/test.txt
+pip install -r requirements/test.txt
+
+# Ensure pretty code
 isort -rc .
 pycodestyle
+
+# Test prospective commit
 coverage run manage.py test
 coverage report
 
