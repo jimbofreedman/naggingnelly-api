@@ -83,3 +83,5 @@ DATABASES = {
 CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
 )
+
+ALLOWED_HOSTS = ('127.0.0.1', '10.0.2.2')
