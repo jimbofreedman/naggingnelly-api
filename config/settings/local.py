@@ -1,9 +1,9 @@
 """
-Local settings
+Local settings for NaggingNelly API project.
 
 - Run in Debug mode
 
-- Use mailhog for emails
+- Use mailhog for emails via Docker
 
 - Add Django Debug Toolbar
 - Add django-extensions as app
@@ -20,7 +20,7 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key only used for development and testing.
-SECRET_KEY = env('DJANGO_SECRET_KEY', default='gv!y{2yhA|]Vb3uY#i0BC2{P#peoy,*rQiLr_eWC]ex:<c=HXf')
+SECRET_KEY = env('DJANGO_SECRET_KEY', default='U~`N=e-;d};SF|,pqy$R6^ND{hCnto6)X-E}UJ_FRIRfh,_qbe')
 
 # Mail settings
 # ------------------------------------------------------------------------------

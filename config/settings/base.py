@@ -117,6 +117,8 @@ MANAGERS = ADMINS
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+# Uses django-environ to accept uri format
+# See: https://django-environ.readthedocs.io/en/latest/#supported-types
 DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres:///api'),
 }
@@ -282,6 +284,10 @@ if CELERY_BROKER_URL == 'django://':
 else:
     CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 ########## END CELERY
+# django-compressor
+# ------------------------------------------------------------------------------
+INSTALLED_APPS += ['compressor']
+STATICFILES_FINDERS += ['compressor.finders.CompressorFinder']
 
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}

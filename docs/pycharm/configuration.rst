@@ -21,17 +21,9 @@ Next, you have to add new remote python interpreter, based on already tested dep
 
 .. image:: images/3.png
 
-Switch to *Docker Compose* and select `dev.yml` file from directory of your project, next set *Service name* to `django`
+Switch to *Docker Compose* and select `local.yml` file from directory of your project, next set *Service name* to `django`
 
 .. image:: images/4.png
-
-Because Pycharm restarts container every time you use Configuration Run, to not have server restarted during running tests, we defined second service in `dev.yml` file called pycharm. To use it, you have to add interpreter of second service as well.
-
-.. image:: images/5.png
-
-The final result should be:
-
-.. image:: images/6.png
 
 Having that, click *OK*. Close *Settings* panel, and wait few seconds...
 
@@ -69,4 +61,4 @@ Most of the files from `.idea/` were added to `.gitignore` with a few exceptions
 
 In theory you can remove them from repository, but then, other people will lose a ability to initialize a project from provided configurations as you did. To get rid of this annoying state, you can run command::
 
-    $ git update-index --assume-unchanged api.iml
+    $ git update-index --assume-unchanged api2.iml

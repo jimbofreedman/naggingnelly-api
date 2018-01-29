@@ -1,4 +1,4 @@
-# api documentation build configuration file, created by
+# NaggingNelly API documentation build configuration file, created by
 # sphinx-quickstart.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -39,8 +39,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'api'
-copyright = """2017, Jimbo freedman"""
+project = 'NaggingNelly API'
+copyright = """2018, Jimbo Freedman"""
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -163,7 +163,7 @@ html_static_path = ['_static']
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'apidoc'
+htmlhelp_basename = 'api2doc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -183,9 +183,9 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
     ('index',
-     'api.tex',
-     'api Documentation',
-     """Jimbo freedman""", 'manual'),
+     'api2.tex',
+     'NaggingNelly API Documentation',
+     """Jimbo Freedman""", 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -214,8 +214,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'api', 'api Documentation',
-     ["""Jimbo freedman"""], 1)
+    ('index', 'api2', 'NaggingNelly API Documentation',
+     ["""Jimbo Freedman"""], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -228,9 +228,9 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('index', 'api', 'api Documentation',
-     """Jimbo freedman""", 'api',
-     """NaggingNelly API""", 'Miscellaneous'),
+    ('index', 'api2', 'NaggingNelly API Documentation',
+     """Jimbo Freedman""", 'NaggingNelly API',
+     """Backend for NaggingNelly""", 'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.
