@@ -13,6 +13,7 @@ class ActionRecurrenceInline(admin.TabularInline):
 
 
 class ActionAdmin(admin.ModelAdmin):
+    search_fields = ['short_description']
     inlines = [
         ActionRecurrenceInline,
     ]
