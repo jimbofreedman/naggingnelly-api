@@ -11,7 +11,7 @@ class BodyTokenAuthentication(TokenAuthentication):
         try:
             token = json.loads(request.body)["authentication_token"]
         except JSONDecodeError:
-            return self.authenticate_credentials("")
+            return self.authenticate_credentials(None)
         except KeyError:
             msg = _('No token in body.')
             raise exceptions.AuthenticationFailed(msg)
