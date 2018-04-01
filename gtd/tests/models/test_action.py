@@ -229,3 +229,41 @@ class ActionModelTests(TestCase):
         self.assertEqual(action.start_at, next_start_at)
         self.assertEqual(action.due_at, next_due_at)
         self.assertEqual(action.completed_at, None)
+
+    @freeze_time("2018-01-15 13:00:00")
+    def test_complete_task_ended_recurrence(self):
+        myrule = recurrence.Rule(
+            freq=recurrence.DAILY,
+            dtstart=datetime(2014, 1, 2, 0, 0, 0),
+            dtend=datetime(2015, 1, 2, 0, 0, 0),
+            interval=1,
+            count=1
+        )
+
+        pattern = recurrence.Recurrence(
+            rrules=[myrule, ]
+        )
+
+        start_at = timezone.make_aware(datetime(2018, 1, 15, 4, 0, 0))
+        due_at = timezone.make_aware(datetime(2018, 1, 15, 12, 0, 0))
+
+        action = Action.objects.create(
+            owner=self.user,
+            short_description="Test Action",
+            recurrence=pattern,
+            start_at=start_at,
+            due_at=due_at,
+            context=self.user.context_set.first(),
+            folder=self.user.folder_set.first()
+        )
+        action.save()
+        self.assertIs(action.status, action.STATUS_OPEN)
+        action.status = action.STATUS_COMPLETED
+        action.save()
+        self.assertIs(action.status, action.STATUS_COMPLETED)
+        action_recurrence = ActionRecurrence.objects.get(action=action)
+        self.assertIs(action_recurrence.action.id, action.id)
+        self.assertIs(action_recurrence.status, action.STATUS_COMPLETED)
+        self.assertEqual(action_recurrence.start_at, start_at)
+        self.assertEqual(action_recurrence.due_at, due_at)
+        self.assertEqual(action.completed_at, timezone.make_aware(datetime.now()))

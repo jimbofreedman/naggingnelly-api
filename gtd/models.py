@@ -123,10 +123,14 @@ class Action(models.Model):
                 )
                 action_recurrence.save()
                 recur_date = self.recurrence.after(timezone.make_naive(self.start_at), inc=False)
-                self.start_at = timezone.make_aware(datetime.combine(recur_date, self.start_at.time()))
-                self.due_at = timezone.make_aware(
-                    datetime.combine(recur_date, self.due_at.time())) if self.due_at else None
-                self.status = self.STATUS_OPEN
+
+                if recur_date is not None:
+                    self.start_at = timezone.make_aware(datetime.combine(recur_date, self.start_at.time()))
+                    self.due_at = timezone.make_aware(
+                        datetime.combine(recur_date, self.due_at.time())) if self.due_at else None
+                    self.status = self.STATUS_OPEN
+                else:
+                    self.completed_at = timezone.now()
             else:
                 self.completed_at = timezone.now()
 
