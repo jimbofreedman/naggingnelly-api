@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.utils import timezone
 from recurrence.fields import RecurrenceField
+from silk.profiling.profiler import silk_profile
 
 from api.users.models import User
 
@@ -104,6 +105,7 @@ class Action(models.Model):
     def __str__(self):
         return self.short_description
 
+    @silk_profile(name='Save Action')
     def save(self, *args, **kwargs):
         # If we have just been completed
         if (self.status > self.STATUS_OPEN and self.completed_at is None):

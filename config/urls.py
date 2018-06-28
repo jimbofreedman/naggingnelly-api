@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
+    url(r'^silk/', include('silk.urls', namespace='silk')),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^gtd/', include('gtd.urls')),
     url(r'^badthing/', include('badthing.urls')),

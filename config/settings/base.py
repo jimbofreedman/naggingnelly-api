@@ -54,6 +54,7 @@ THIRD_PARTY_APPS = [
     'rest_auth',
     'corsheaders',
     'recurrence',
+    'silk',
 ]
 
 # Apps specific for this project go here.
@@ -72,6 +73,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
+    'silk.middleware.SilkyMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
