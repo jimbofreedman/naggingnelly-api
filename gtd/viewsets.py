@@ -80,3 +80,14 @@ class ActionViewSet(APIViewSet):
         action.dependencies.remove(dependency)
         action.save()
         return Response(self.get_serializer(action).data)
+
+    @detail_route(methods=['post'])
+    def reprioritise_after(self, request, pk=None):
+        action = Action.objects.get(owner=request.user, pk=pk)
+        after_action_priority = Action.objects.get(owner=request.user, pk=request.data['after_action_id']).priority
+        before_action_priority = Action.objects.get(owner=request.user, priority__lt=after_action_priority,
+                                                    status=Action.STATUS_OPEN).priority
+
+        action.priority = int((before_action_priority + after_action_priority) / 2)
+        action.save()
+        return Response(self.get_serializer(action).data)
