@@ -42,7 +42,7 @@ class ActionViewSet(APIViewSet):
     serializer_class = ActionSerializer
 
     def get_queryset(self):
-        return self.request.user.action_set.all()
+        return self.request.user.action_set.prefetch_related("dependencies")
 
     @detail_route(methods=['post'])
     def complete(self, request, pk=None):
