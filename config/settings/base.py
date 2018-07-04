@@ -65,6 +65,7 @@ LOCAL_APPS = [
     'gtd',
     'badthing',
     'smelltest',
+    'dailylog',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
