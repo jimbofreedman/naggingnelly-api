@@ -20,6 +20,9 @@ class Scent(models.Model):
     def __str__(self):
         return '#{} {}'.format(self.id, self.name)
 
+    class Meta:
+        ordering = ['id']
+
 
 class TestResult(models.Model):
     scent = models.ForeignKey(Scent, related_name='tests')
