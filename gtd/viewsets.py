@@ -1,6 +1,7 @@
+from django.db.models import Max
 from django.http import HttpResponse, HttpResponseRedirect
 from rest_framework import viewsets
-from rest_framework.decorators import detail_route, list_route
+from rest_framework.decorators import api_view, detail_route, list_route
 from rest_framework.response import Response
 
 from api.viewsets import APIViewSet
@@ -9,6 +10,15 @@ from .models import Action
 from .serializers import ActionSerializer, ContextSerializer, FolderSerializer, GtdUserSerializer
 
 response = HttpResponseRedirect('/dashboard')
+
+
+class PollViewSet(viewsets.ModelViewSet):
+    def list(self, request):
+        return Response({
+            "actions": request.user.action_set.aggregate(Max('updated_at'))['updated_at__max'],
+            "contexts": request.user.context_set.aggregate(Max('updated_at'))['updated_at__max'],
+            "folders": request.user.folder_set.aggregate(Max('updated_at'))['updated_at__max']
+        })
 
 
 class GtdUserViewSet(viewsets.ModelViewSet):
