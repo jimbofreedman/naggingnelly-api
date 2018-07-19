@@ -58,12 +58,12 @@ class BadThingTypeTest(APITestCase):
         response = self.client.get("/badthing/bad_thing_types/{}/".format(type.id))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-    def test_create(self):
-        self.client.login(username=self.username, password=self.password)
-        name = self.faker.name()
-        response = self.client.post("/badthing/bad_thing_types/", {"name": name})
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(json.loads(response.content)["name"], name)
+    # def test_create(self):
+    #     self.client.login(username=self.username, password=self.password)
+    #     name = self.faker.name()
+    #     response = self.client.post("/badthing/bad_thing_types/", {"name": name})
+    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    #     self.assertEqual(json.loads(response.content)["name"], name)
 
     def test_create_logged_out(self):
         response = self.client.post("/badthing/bad_thing_types/", {"name": self.faker.name()})
