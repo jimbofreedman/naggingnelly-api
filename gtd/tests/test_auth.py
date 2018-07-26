@@ -11,7 +11,9 @@ from api.users.models import User
 class ApiAuthTests(TestCase):
     def setUp(self):
         self.faker = Faker()
-        self.user = User.objects.create(username=self.faker.name())
+        self.user = User.objects.create(username="asdf@asdf.com", email="asdf@asdf.com")
+        self.user.set_password("asdfasdf")
+        self.user.save()
         self.token = Token.objects.create(user=self.user)
         self.body = {"authentication_token": self.token.key,
                      "shortDescription": "hi",
@@ -32,3 +34,7 @@ class ApiAuthTests(TestCase):
     def test_token_body(self):
         response = self.client.post(self.get_url('gtd:actions-list'), json=self.body)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_login(self):
+        response = self.client.post(self.get_url('rest_login'), json={"email": "asdf@asdf.com", "password": "asdfasdf"})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

@@ -9,6 +9,7 @@ from rest_framework.authentication import TokenAuthentication
 class BodyTokenAuthentication(TokenAuthentication):
     def authenticate(self, request):
         # Note we don't want to throw exceptions if authentication fails, because this isn't the only auth method
+        print(request.body)
         try:
             token = json.loads(request.body)["authentication_token"]
         except JSONDecodeError:
