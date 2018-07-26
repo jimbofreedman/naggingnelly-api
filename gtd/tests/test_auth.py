@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TransactionTestCase
 from django.urls import reverse
 from faker import Faker
 from rest_framework import status
@@ -8,7 +8,7 @@ from rest_framework.test import RequestsClient
 from api.users.models import User
 
 
-class ApiAuthTests(TestCase):
+class ApiAuthTests(TransactionTestCase):
     def setUp(self):
         self.faker = Faker()
         self.user = User.objects.create(username="asdf@asdf.com", email="asdf@asdf.com")
