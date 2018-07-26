@@ -1,10 +1,12 @@
 from django.test import TestCase
-from faker import Faker
 from django.urls import reverse
-from api.users.models import User
-from rest_framework.test import RequestsClient
+from faker import Faker
 from rest_framework import status
 from rest_framework.authtoken.models import Token
+from rest_framework.test import RequestsClient
+
+from api.users.models import User
+
 
 class ApiAuthTests(TestCase):
     def setUp(self):
