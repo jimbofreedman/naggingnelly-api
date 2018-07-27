@@ -25,4 +25,5 @@ class ActionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Action
         fields = ['id', 'short_description', 'status', 'priority', 'start_at', 'due_at', 'recurrence', 'dependencies',
-                  'folder', 'context', 'updated_at']
+                  'depends_on', 'folder', 'context', 'updated_at']
+        read_only_fields = ['depends_on']
