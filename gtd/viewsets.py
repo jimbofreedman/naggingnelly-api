@@ -78,7 +78,7 @@ class ActionViewSet(APIViewSet):
     @detail_route(methods=['post'])
     def add_dependency(self, request, pk=None):
         action = Action.objects.get(owner=request.user, pk=pk)
-        dependency = Action.objects.get(owner=request.user, pk=request.data['dependency_action_id'])
+        dependency = Action.objects.get(owner=request.user, pk=request.GET.get('dependency_action_id', None))
         action.dependencies.add(dependency)
         action.save()
         return Response(self.get_serializer(action).data)
@@ -86,7 +86,7 @@ class ActionViewSet(APIViewSet):
     @detail_route(methods=['post'])
     def remove_dependency(self, request, pk=None):
         action = Action.objects.get(owner=request.user, pk=pk)
-        dependency = Action.objects.get(owner=request.user, pk=request.data['dependency_action_id'])
+        dependency = Action.objects.get(owner=request.user, pk=request.GET.get('dependency_action_id', None))
         action.dependencies.remove(dependency)
         action.save()
         return Response(self.get_serializer(action).data)
