@@ -60,6 +60,7 @@ class Context(models.Model):
     owner = models.ForeignKey(User)
     name = models.CharField(max_length=100)
     glyph = models.CharField(max_length=100)
+    color = models.CharField(max_length=6, default="ffffff")
 
     def __str__(self):
         return self.name
