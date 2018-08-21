@@ -66,6 +66,7 @@ LOCAL_APPS = [
     'badthing',
     'smelltest',
     'dailylog',
+    'friendtrack',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
