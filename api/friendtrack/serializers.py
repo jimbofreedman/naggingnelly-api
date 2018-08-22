@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Friend, Category
+from .models import Category, Friend
 
 
 class FriendSerializer(serializers.ModelSerializer):

@@ -1,12 +1,14 @@
 import json
-from django import forms
 from datetime import datetime
+
+from django import forms
 from django.utils import timezone
+
 from .models import Friend
 
 
 class UpdateListForm(forms.Form):
-    json_data = forms.CharField(widget=forms.Textarea(attrs={'width':"100%", 'cols' : "80", 'rows': "20", }))
+    json_data = forms.CharField(widget=forms.Textarea(attrs={'width': "100%", 'cols': "80", 'rows': "20", }))
 
     def update_from_json(self, owner):
         json_data = json.loads(self.cleaned_data['json_data'])

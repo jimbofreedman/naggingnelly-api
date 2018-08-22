@@ -1,5 +1,7 @@
 from django.db import models
+
 from api.users.models import User
+
 
 class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -33,4 +35,3 @@ class Friend(models.Model):
 
     class Meta:
         ordering = ('override_name', 'facebook_name', )
-

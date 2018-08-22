@@ -1,6 +1,6 @@
 from api.viewsets import APIViewSet
 
-from .serializers import FriendSerializer, CategorySerializer
+from .serializers import CategorySerializer, FriendSerializer
 
 
 class FriendViewSet(APIViewSet):
