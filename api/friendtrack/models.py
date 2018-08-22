@@ -22,7 +22,7 @@ class Friend(models.Model):
     override_name = models.CharField(max_length=200, null=True, blank=True)
     added_at = models.DateField(null=True, blank=True)
 
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, null=True, blank=True)
 
     @property
     def name(self):
