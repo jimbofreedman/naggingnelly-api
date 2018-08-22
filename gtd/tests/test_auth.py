@@ -1,5 +1,6 @@
 from django.test import TransactionTestCase
 from django.urls import reverse
+
 from faker import Faker
 from rest_framework import status
 from rest_framework.authtoken.models import Token

@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from gtd.models import Action
+
+from .models import Action
 
 
 class Command(BaseCommand):

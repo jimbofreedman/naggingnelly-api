@@ -1,8 +1,10 @@
 from django.test import TestCase
+
 from faker import Faker
-from gtd.models import Folder
 
 from api.users.models import User
+
+from ...models import Folder
 
 
 class FolderModelTests(TestCase):

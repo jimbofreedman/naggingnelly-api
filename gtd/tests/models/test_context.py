@@ -1,8 +1,10 @@
 from django.test import TestCase
+
 from faker import Faker
-from gtd.models import Context
 
 from api.users.models import User
+
+from ...models import Context
 
 
 class ContextModelTests(TestCase):

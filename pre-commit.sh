@@ -8,10 +8,8 @@ git stash save -q --keep-index $STASH_NAME
 
 # Check for syntax errors in requirements files
 pip install -r requirements/test.txt
-pip install -r requirements/test.txt
 
 # Ensure pretty code
-isort -rc .
 flake8 --count --statistics
 
 # Test prospective commit

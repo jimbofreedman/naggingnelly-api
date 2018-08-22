@@ -3,6 +3,7 @@ from datetime import datetime
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils import timezone
+
 from recurrence.fields import RecurrenceField
 from silk.profiling.profiler import silk_profile
 

@@ -1,5 +1,6 @@
 from django.db.models import Max
 from django.http import HttpResponseRedirect
+
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response

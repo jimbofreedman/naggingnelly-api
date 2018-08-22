@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from faker import Faker
 
 from api.users.models import User
