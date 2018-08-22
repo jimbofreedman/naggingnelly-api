@@ -9,7 +9,6 @@ class UpdateListForm(forms.Form):
     json_data = forms.CharField(widget=forms.Textarea(attrs={'width':"100%", 'cols' : "80", 'rows': "20", }))
 
     def update_from_json(self, owner):
-        print(self.cleaned_data['json_data'])
         json_data = json.loads(self.cleaned_data['json_data'])
         for friend_data in json_data['friends']:
             # Facebook doesn't encode names properly,

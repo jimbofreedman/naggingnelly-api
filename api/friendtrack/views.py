@@ -1,8 +1,5 @@
 from .forms import UpdateListForm
 from django.views.generic.edit import FormView
-from django.conf import settings
-
-print(settings.DEFAULT_CHARSET)
 
 class UpdateListView(FormView):
     template_name = 'friendtrack/update_list.html'
