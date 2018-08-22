@@ -5,7 +5,6 @@ from django.test import TestCase
 from django.utils import timezone
 from faker import Faker
 from freezegun import freeze_time
-# Create your tests here.
 from gtd.models import Action, ActionRecurrence
 
 from api.users.models import User

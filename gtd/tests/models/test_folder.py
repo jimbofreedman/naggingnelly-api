@@ -1,10 +1,5 @@
-from datetime import datetime, time, timedelta
-
-import recurrence
 from django.test import TestCase
-from django.utils import timezone
 from faker import Faker
-from freezegun import freeze_time
 from gtd.models import Folder
 
 from api.users.models import User

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # pre-commit.sh
 set -e
 
@@ -11,7 +12,7 @@ pip install -r requirements/test.txt
 
 # Ensure pretty code
 isort -rc .
-pycodestyle
+flake8 --count --statistics
 
 # Test prospective commit
 coverage run manage.py test

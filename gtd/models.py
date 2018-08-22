@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import datetime
 
 from django.db import models
 from django.db.models.signals import post_save
@@ -181,7 +181,7 @@ def create_user(sender, instance, created, **kwargs):
     someday = Folder.objects.create(
         name="Someday", special_type=Folder.SOMEDAY, owner=instance)
 
-    gtd_user = GtdUser.objects.create(
+    GtdUser.objects.create(
         user=instance, bin=bin1, collectbox=collectbox, actions=actions,
         waiting_for=waiting_for, tickler=tickler, someday=someday)
 

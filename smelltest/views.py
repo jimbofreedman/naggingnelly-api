@@ -1,6 +1,6 @@
 import json
 
-from django.db.models import Count, QuerySet
+from django.db.models import Count
 from django.http import HttpResponse
 from django.template import loader
 

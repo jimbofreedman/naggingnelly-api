@@ -1,10 +1,7 @@
-import json
-
 from badthing.models import BadThing, BadThingType
-from django.core.urlresolvers import reverse
 from faker import Faker
 from rest_framework import status
-from rest_framework.test import APIRequestFactory, APITestCase, force_authenticate
+from rest_framework.test import APITestCase
 
 from api.users.models import User
 
