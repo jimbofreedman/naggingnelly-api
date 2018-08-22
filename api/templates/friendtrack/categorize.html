@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ friend.name }}</h1>
+    <div class="btn-group" role="group" aria-label="categories">
+    {% for category in categories %}
+        <a class="btn btn-default" href="/friendtrack/categorize/{{ friend.id }}/{{ category.id }}/" >{{ category.name }}</a>
+    {% endfor %}
+    </div>
+{% endblock %}

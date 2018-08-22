@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for category in categories %}
+        <h1>{{ category.name }}</h1>
+        {% for friend in category.friend_set.all %}
+            <div>{{ friend.name }}</div>
+        {% endfor %}
+        <hr>
+    {% endfor %}
+{% endblock %}
