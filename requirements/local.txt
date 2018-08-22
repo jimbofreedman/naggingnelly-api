@@ -20,3 +20,4 @@ pytest-sugar==0.9.0
 
 isort==4.2.15
 flake8==3.5.0
+flake8-import-order==0.18
